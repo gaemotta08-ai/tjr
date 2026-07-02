@@ -1,0 +1,171 @@
+{
+  "meta": {
+    "trader": "TJR (TJR Trades)",
+    "canal": "https://www.youtube.com/@TJRTrades",
+    "metodologia": "SMC / ICT (Smart Money Concepts) aplicada a day trading intradiario",
+    "instrumentos": "Indices (S&P500/ES, NASDAQ/NQ), Forex (GBPJPY, GBPUSD, oro), a veces crypto",
+    "videos_en_canal": 806,
+    "videos_priorizados_descargados": 286,
+    "videos_con_contenido_de_estrategia": 225,
+    "regla_de_consolidacion": "Una regla cuenta como ESTRATEGIA REAL si aparece en >=3 videos independientes. Lo que aparece 1 sola vez va a 'ruido'. El n= al lado de cada regla es en cuantos de los 225 videos con estrategia se detecto el concepto.",
+    "fuente_datos": "subtitulos automaticos en ingles, limpiados y extraidos a all_extractions.json (1 objeto por video)"
+  },
+
+  "estrategia_real": {
+    "1_sesion_y_horario": {
+      "regla": "Opera las 'killzones' de apertura: London open y New York open (sesion AM de NY, ~9:30 ET / primera hora). Es cuando entra el volumen que produce el barrido + reversion. La sesion asiatica se usa sobre todo como nivel de liquidez (Asia high/low), no tanto para operar.",
+      "soporte": {"London/killzone": 57, "NY open ~9:30 / primera hora": 31, "Asia high/low como nivel": 21},
+      "confianza": "alta (>=3 videos)",
+      "citas": [
+        "if New York session comes up, sweeps out [...] highs, what's a good exit point",
+        "target Asian session lows. One to freaking three risk-to-reward ratio"
+      ]
+    },
+
+    "2_bias_del_dia": {
+      "regla": "Top-down / HTF. Define la direccion del dia mirando Daily y 4H (y 1H): identifica hacia que 'draw on liquidity' (charco de liquidez) deberia ir el precio. El bias asume MANIPULACION: primero el precio barre la liquidez del lado contrario (stop hunt) y RECIEN despues se va hacia el draw on liquidity real del dia. Bias bajista = espera que barran un high y luego caiga hacia lows; bias alcista al reves.",
+      "soporte": {"Daily/HTF bias top-down": 47},
+      "confianza": "alta (>=3 videos, serie completa 'Daily Bias' y 'Path to Profitability')",
+      "citas": [
+        "we can target the previous draws on liquidity that we had marked out in the opposite direction",
+        "draws on liquidity not only as entry points, but also as exit points"
+      ]
+    },
+
+    "3_niveles_clave": {
+      "regla": "Marca ANTES de operar los pools de liquidez = highs/lows de sesiones previas (Asia, London, NY), previous day high/low, hourly (1H) highs/lows, 4H highs/lows, relative equal highs/lows (liquidez 'low resistance'/apilada), data highs/lows (noticias) y new day / new week opening gaps. Estos niveles sirven DOBLE proposito: (a) donde ocurre el barrido y (b) objetivo de take profit del lado opuesto.",
+      "soporte": {"equal highs/lows + pools": 24, "sesiones/dia previo/hourly/4h (omnipresente en TP)": 150},
+      "confianza": "alta (>=3 videos)",
+      "citas": [
+        "high time frame highs, high time frame lows, previous session highs, previous session lows",
+        "1 hour lows... 4hour lows... session lows... using those as targets"
+      ]
+    },
+
+    "4_barrido_de_liquidez": {
+      "regla": "Liquidity sweep / grab / stop hunt: el precio EXCEDE con una mecha un nivel de liquidez (equal highs/lows, session high/low) tomando los stops que descansan ahi, y NO continua: falla y revierte. Invalidacion: si el precio sigue de largo y se mantiene mas alla del nivel, NO fue un barrido ('it's not a liquidity sweep because price keeps going higher'). Es el gatillo de contexto que habilita buscar entrada.",
+      "soporte": {"Liquidity sweep/grab/stop hunt": 104},
+      "confianza": "alta (>=3 videos, dedicados: 'Liquidity Sweeps Explained', 'The ONLY Liquidity Sweeps Video')",
+      "citas": [
+        "my first area [...] for my stop loss is going to be over the liquidity sweep",
+        "if we push fully past that confluence, the trade idea is essentially bunk"
+      ]
+    },
+
+    "5_cambio_de_estructura_y_confirmacion": {
+      "regla": "Tras el barrido, espera un BREAK OF STRUCTURE (BOS) en bajo timeframe EN DIRECCION OPUESTA al barrido. Usa mayormente el termino 'break of structure' (no 'MSS/CHoCH'). Confirmacion = CIERRE de vela a traves de la estructura (no solo una mecha): no acciona hasta tener 'confirmation', un cierre por encima del high (para longs) o por debajo del low (para shorts). El movimiento que rompe estructura es un 'displacement' (vela/impulso fuerte).",
+      "soporte": {"BOS break of structure": 179, "MSS/CHoCH (terminologia alterna)": 11},
+      "confianza": "alta (>=3 videos, dedicado: 'How to Spot a Break of Structure')",
+      "citas": [
+        "I'm not moving [...] until we actually have confirmation a movement to the upside",
+        "a one minute break in structure out of that [...] that was entry point for me"
+      ]
+    },
+
+    "6_trigger_de_entrada": {
+      "regla": "El displacement que rompe estructura deja un FAIR VALUE GAP (FVG / imbalance) o un ORDER BLOCK. Entra con orden limite en ese FVG/OB en el retroceso, tipicamente al 50% del gap ('the 50'). Variante frecuente: INVERSE FVG (IFVG) -> entra cuando el precio invierte un gap contrario. El FVG da un stop mas chico que esperar el BOS completo. Order block = ultima vela opuesta antes del impulso.",
+      "soporte": {"FVG / imbalance": 184, "Order block": 129},
+      "confianza": "alta (>=3 videos, dedicados: 'Fair Value Gaps Explained', 'How to Spot Order Blocks')",
+      "citas": [
+        "once you enter into the fair value gap you can just put the stop loss above the fair value gap",
+        "enter at the 50 put their stop loss above the most recent high"
+      ]
+    },
+
+    "7_timeframes": {
+      "regla": "Bias/contexto HTF: Daily, 4H, 1H. Marcado intermedio: 15m. Ejecucion/entrada: 5m -> 1m (a veces baja a 15 segundos). Flujo: bias y niveles en HTF, barrido + BOS + FVG en 1m/5m.",
+      "soporte": {"1m/5m entry TF": 148, "15m intermedio / Daily-4H-1H bias": 47},
+      "confianza": "alta (>=3 videos)",
+      "citas": [
+        "we're going to be looking for at least a 5 minute or a 15-minute retrace",
+        "targeting previous areas of liquidity within the one minute time frame"
+      ]
+    }
+  },
+
+  "SALIDAS_foco_principal": {
+    "_nota": "Esta es la parte priorizada. Los numeros son sobre los videos que ESPECIFICAN cada salida.",
+
+    "stop_loss": {
+      "regla_principal": "El stop va del OTRO LADO del barrido/estructura que da la entrada, en el punto donde la idea queda INVALIDADA. SHORTS: por encima de los highs barridos / por encima del liquidity sweep. LONGS: por debajo de los lows barridos / por debajo de la mecha (wick) de la vela del sweep.",
+      "tres_ubicaciones_por_preferencia": [
+        "1) (mas seguro, su preferida) Por encima/debajo del LIQUIDITY SWEEP completo (los highs/lows barridos). Si el precio supera esto, no fue barrido -> idea invalidada.",
+        "2) Por encima/debajo de la CONFLUENCIA de entrada misma (el FVG o el order block), para darle un poco de aire si el R lo permite.",
+        "3) (mas ajustado, mas arriesgado) Por encima/debajo del high/low formado DENTRO de la confluencia, justo antes del BOS de bajo timeframe -> stop chico, mejor R, pero mas probable que lo saquen."
+      ],
+      "ajuste_forex": "En Forex/oro agrega ~2 a 4 pips extra al stop para cubrir el spread. Regla citada literal: 'my stop loss is always four pips below the liquidity sweep'.",
+      "no_usa": "No usa stop por distancia fija de ticks/pips como regla (los ticks que menciona son solo para calcular tamano de posicion / sizing). El stop es ESTRUCTURAL.",
+      "soporte": {"videos_que_especifican_SL": 164, "SL al otro lado de swing/wick/sweep/FVG/OB": 91, "principio de invalidacion explicito": 9},
+      "confianza": "alta (>=3 videos)",
+      "citas": [
+        "I put my stop loss above these highs. And then from there, I targeted all of my draws and liquidity",
+        "we can either put stops right underneath these lows, underneath this candlestick wick",
+        "when we're looking for stop-loss, we're looking to exit where trade idea gets invalidated",
+        "my stop loss is always four pips below the liquidity sweep"
+      ]
+    },
+
+    "take_profit": {
+      "regla_principal": "El take profit es la LIQUIDEZ OPUESTA = el/los draw(s) on liquidity del lado contrario a donde entro. Si barrio lows y va long, target = highs (session highs, hourly highs, 4H highs, previous day high, equal highs). Si barrio highs y va short, target = lows equivalentes. NO es un R fijo ni ticks fijos: es siempre un NIVEL LOGICO de liquidez donde el precio puede revertir.",
+      "parciales_y_multiples_TP": {
+        "regla": "Usa MULTIPLES take profits escalonados (TP1, TP2, TP3, a veces TP4/TP5) en cada nivel de liquidez intermedio, tomando parciales. Esquema mas repetido: 50% en TP1, luego 50% del resto (~25%) en TP2, y deja correr el ultimo ~25% (runner) hacia el draw on liquidity de mayor timeframe.",
+        "TP1": "El draw on liquidity mas cercano (ej. 5m/15m high-low, hourly). Suele caer cerca de 1:1. En sesiones lentas (PM) a veces toma todo aca.",
+        "TP_final": "El draw on liquidity de HTF (4H/1H high-low, ATH opuesto). Prefiere highs/lows intermedios antes que un unico TP lejano.",
+        "forex": "En Forex a veces toma TODO el TP1 (cierra completo en el primer nivel) en vez de escalar."
+      },
+      "sobre_el_R": "El risk:reward es una CONSECUENCIA del nivel, no un objetivo fijo. Menciona 1:3 como benchmark frecuente; rango observado 1:1 a 1:8 (ejemplos: 1:2, 1:3.25, 1:4.8, 1:5.5, 1:7.36). Su win rate alto le permite a veces ni llegar a 1:1.",
+      "soporte": {"videos_que_especifican_TP": 189, "TP = liquidez/draw opuesta": 150, "TP con parciales/multiples": 93, "menciona R fijo/ratio como referencia": 56},
+      "confianza": "alta (>=3 videos)",
+      "citas": [
+        "we are looking to exit the trade at possible liquidation points such as high time frame highs, high time frame lows, previous session highs, previous session lows",
+        "low resistance draws and liquidity as exit points... Exit here. Exit here. Exit here",
+        "we hit take profit one, take profit two, and take profit three",
+        "I use draws on liquidity not only as entry points, but also as exit points"
+      ]
+    },
+
+    "breakeven": {
+      "regla_principal": "SI mueve a breakeven, y lo llama 'my common risk management'. Disparador: cuando se toca el PRIMER take profit (TP1) y toma el primer parcial (50%), mueve el stop al precio de entrada (break even) -> trade libre de riesgo. Luego, cuando se toca TP2, mueve el stop A PROFIT (por debajo del low / por encima del high mas reciente, o bajo el low de 5m solo si cerro confirmando).",
+      "secuencia_tipica": [
+        "TP1 hit -> tomar 50% -> mover stop a BREAK EVEN",
+        "TP2 hit -> tomar otro ~25% -> mover stop A PROFIT detras de la ultima estructura",
+        "Runner (~25%) corre hasta el draw on liquidity de HTF o se stopea en BE/profit"
+      ],
+      "caveat_importante": "Advertencia repetida: NO mover a breakeven DEMASIADO TEMPRANO. El 'Seek and Destroy' (re-barrido) frecuentemente saca a la gente en BE justo antes del movimiento real. En varios videos dice que a veces NO mueve a BE y deja correr, o avisa que mover muy pronto = stopeado al tick. Tambien tiene una postura (curso/My UPDATED Strategy) de NO tocar el take profit una vez puesto. => BE es REGLA por defecto tras TP1, pero condicional al criterio y al riesgo de re-barrido.",
+      "soporte": {"videos_que_especifican_BE": 71, "BE = si, mueve a BE": 63, "BE explicitamente tras TP1/primer parcial": 20, "advertencia de no mover muy temprano": 2},
+      "confianza": "alta (>=3 videos)",
+      "citas": [
+        "Take profit one gets hit. We can go ahead and move stop loss to break even. Take partial profits off at takeprofit one",
+        "once my first take profit gets hit [...] I move my stop loss to break even",
+        "I took 50 off, moved the rest [...] moved my stop loss to break even",
+        "you move your stop loss to break even you get stopped out to the tick and then boom price rallies up and hits your take profit (advertencia)"
+      ]
+    }
+  },
+
+  "secuencia_mecanica_resumen": [
+    "1. Pre-mercado: marcar draws on liquidity HTF (sesiones, dia previo, 1H, 4H, equal highs/lows) y definir bias (a que draw deberia ir el precio).",
+    "2. En killzone (London / NY open): esperar que el precio BARRA un nivel de liquidez contrario al bias (sweep que falla).",
+    "3. En 1m/5m: esperar BREAK OF STRUCTURE en direccion del bias, confirmado por CIERRE (displacement).",
+    "4. Entrada: orden limite en el FVG (al 50%) o order block que dejo el displacement.",
+    "5. Stop: del otro lado del barrido / wick que invalida (shorts arriba de los highs, longs debajo de los lows). Forex +2-4 pips.",
+    "6. Targets: draws on liquidity opuestos, escalonados (TP1 cercano ~1:1, TP2, TP final en HTF).",
+    "7. Gestion: 50% en TP1 -> stop a BREAK EVEN; 25% en TP2 -> stop a profit; runner al draw HTF. (Cuidado de no mover a BE demasiado temprano.)"
+  ],
+
+  "ruido_dicho_1_vez_o_no_generalizable": [
+    {"item": "Usar un mismo punto a ~35 pips como stop loss Y take profit a la vez para pasar una funded en phase 2", "fuente": "1 video (Banned Funded Account Strategy)", "motivo": "truco especifico de evaluacion, no es su estrategia de trading"},
+    {"item": "Operar SIN stop ('full porting') dejando que el broker auto-liquide", "fuente": "1 video (One Setup Into $48,305 Live), lo admite y se arrepiente", "motivo": "mal manejo de riesgo puntual, contradice su regla estructural"},
+    {"item": "Salir por ruptura de estructura SEMANAL para inversion de largo plazo", "fuente": "1 video (How to Invest Correctly)", "motivo": "es inversion, no day trading"},
+    {"item": "Take profit por porcentaje fijo de cuenta ($10k = 5%)", "fuente": "1 video funded", "motivo": "regla de gestion de cuenta de evaluacion, no de salida tecnica"},
+    {"item": "Entradas en timeframe de 15 segundos", "fuente": "pocos videos", "motivo": "caso extremo, su ejecucion estandar es 1m/5m"},
+    {"item": "'Never move your take profit, ever' como regla absoluta", "fuente": "curso + My UPDATED Strategy", "motivo": "contradicho por los multiples-TP/parciales que usa en la mayoria de los videos; tratar como preferencia personal, no regla dura"},
+    {"item": "Fibonacci extensions como target", "fuente": "pocos videos, solo cuando esta en all-time highs sin nivel de liquidez por encima", "motivo": "fallback, no el metodo principal de TP"}
+  ],
+
+  "contradicciones_y_zonas_grises": [
+    "BREAK EVEN: regla por defecto (TP1 -> BE) PERO advierte contra moverlo muy temprano por el 'Seek and Destroy'. No es deterministico al 100%; depende de criterio.",
+    "TP fijo vs niveles: la mayoria usa niveles de liquidez (no R fijo), pero en algunos recaps de sesion lenta toma 1:1 fijo. El R es consecuencia, no objetivo, salvo casos puntuales donde apunta a ~1:3.",
+    "Parciales vs full TP: indices = escalona parciales; Forex = a veces full TP en el primer nivel."
+  ]
+}

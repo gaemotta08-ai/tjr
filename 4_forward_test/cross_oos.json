@@ -1,0 +1,66 @@
+{
+ "NQ": {
+  "metrics": {
+   "n": 1922,
+   "expectancy_R": 0.7838,
+   "winrate": 0.7414,
+   "avg_win": 1.402,
+   "avg_loss": -0.992,
+   "profit_factor": 4.063,
+   "sum_R": 1506.5,
+   "sharpe_per_trade": 0.2723,
+   "max_dd_R": -7.0,
+   "ret_dd": 216.62
+  },
+  "null_z": 19.61,
+  "tipo": "dise\u00f1o"
+ },
+ "ES": {
+  "metrics": {
+   "n": 1865,
+   "expectancy_R": 0.1968,
+   "winrate": 0.5678,
+   "avg_win": 0.817,
+   "avg_loss": -0.618,
+   "profit_factor": 1.737,
+   "sum_R": 367.1,
+   "sharpe_per_trade": 0.1621,
+   "max_dd_R": -15.7,
+   "ret_dd": 23.31
+  },
+  "null_z": 11.84,
+  "tipo": "dise\u00f1o"
+ },
+ "DOW": {
+  "metrics": {
+   "n": 1912,
+   "expectancy_R": 0.8729,
+   "winrate": 0.7369,
+   "avg_win": 1.549,
+   "avg_loss": -1.02,
+   "profit_factor": 4.253,
+   "sum_R": 1669.0,
+   "sharpe_per_trade": 0.2598,
+   "max_dd_R": -6.2,
+   "ret_dd": 267.56
+  },
+  "null_z": 27.07,
+  "tipo": "NUNCA visto (OOS puro)"
+ },
+ "RUT": {
+  "metrics": {
+   "n": 1828,
+   "expectancy_R": -0.0132,
+   "winrate": 0.459,
+   "avg_win": 0.599,
+   "avg_loss": -0.533,
+   "profit_factor": 0.954,
+   "sum_R": -24.2,
+   "sharpe_per_trade": -0.0142,
+   "max_dd_R": -63.4,
+   "ret_dd": -0.38
+  },
+  "null_z": 11.5,
+  "tipo": "NUNCA visto (OOS puro)"
+ }
+}

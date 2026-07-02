@@ -1,0 +1,16 @@
+[Unit]
+# tjr-feed — baja velas NQ 1m de Yahoo y las escribe a NQ_live_1m.csv 24/7.
+Description=TJR feed (yfinance NQ 1m -> CSV)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/tjr/ENTREGA
+ExecStart=/home/ubuntu/tjr/venv/bin/python3 /home/ubuntu/tjr/ENTREGA/feed_yfinance.py --csv /home/ubuntu/tjr/ENTREGA/NQ_live_1m.csv --poll 30
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

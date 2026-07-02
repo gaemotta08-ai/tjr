@@ -1,0 +1,92 @@
+{
+ "holdout_2025_2026": {
+  "1x": {
+   "n": 792,
+   "expectancy_R": 0.9655,
+   "winrate": 0.7664,
+   "avg_win": 1.58,
+   "avg_loss": -1.052,
+   "profit_factor": 4.929,
+   "sum_R": 764.7,
+   "sharpe_per_trade": 0.2715,
+   "max_dd_R": -5.6,
+   "ret_dd": 136.7,
+   "worst": -1.38,
+   "slip_loss_R": -1.052
+  },
+  "2x": {
+   "n": 792,
+   "expectancy_R": 0.9304,
+   "winrate": 0.7487,
+   "avg_win": 1.586,
+   "avg_loss": -1.022,
+   "profit_factor": 4.622,
+   "sum_R": 736.8,
+   "sharpe_per_trade": 0.2621,
+   "max_dd_R": -6.0,
+   "ret_dd": 122.88,
+   "worst": -1.5,
+   "slip_loss_R": -1.022
+  },
+  "3x": {
+   "n": 792,
+   "expectancy_R": 0.8952,
+   "winrate": 0.7412,
+   "avg_win": 1.57,
+   "avg_loss": -1.038,
+   "profit_factor": 4.332,
+   "sum_R": 709.0,
+   "sharpe_per_trade": 0.2526,
+   "max_dd_R": -6.9,
+   "ret_dd": 102.73,
+   "worst": -1.62,
+   "slip_loss_R": -1.038
+  },
+  "null_z": 24.87
+ },
+ "ultimos_3_meses": {
+  "1x": {
+   "n": 134,
+   "expectancy_R": 0.9193,
+   "winrate": 0.7313,
+   "avg_win": 1.645,
+   "avg_loss": -1.056,
+   "profit_factor": 4.241,
+   "sum_R": 123.2,
+   "sharpe_per_trade": 0.3306,
+   "max_dd_R": -5.0,
+   "ret_dd": 24.64,
+   "worst": -1.38,
+   "slip_loss_R": -1.056
+  },
+  "2x": {
+   "n": 134,
+   "expectancy_R": 0.8885,
+   "winrate": 0.7239,
+   "avg_win": 1.634,
+   "avg_loss": -1.066,
+   "profit_factor": 4.02,
+   "sum_R": 119.1,
+   "sharpe_per_trade": 0.3211,
+   "max_dd_R": -5.4,
+   "ret_dd": 22.04,
+   "worst": -1.5,
+   "slip_loss_R": -1.066
+  },
+  "3x": {
+   "n": 134,
+   "expectancy_R": 0.8578,
+   "winrate": 0.7239,
+   "avg_win": 1.606,
+   "avg_loss": -1.104,
+   "profit_factor": 3.814,
+   "sum_R": 114.9,
+   "sharpe_per_trade": 0.3114,
+   "max_dd_R": -5.8,
+   "ret_dd": 19.8,
+   "worst": -1.62,
+   "slip_loss_R": -1.104
+  },
+  "null_z": 7.53
+ }
+}

@@ -1,0 +1,20 @@
+[Unit]
+# tjr-signals — tailea NQ_live_1m.csv, corre el motor TJR cada cierre de 5min
+# y manda la alerta por ntfy. Arranca despues del feed.
+Description=TJR signals (live_runner csv-live -> ntfy)
+After=tjr-feed.service network-online.target
+Wants=network-online.target
+Requires=tjr-feed.service
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/tjr/ENTREGA
+Environment=TJR_BT_DIR=/home/ubuntu/tjr/ENTREGA/2_backtest
+Environment=TJR_EJ_DIR=/home/ubuntu/tjr/ejecucion
+ExecStart=/home/ubuntu/tjr/venv/bin/python3 /home/ubuntu/tjr/ENTREGA/live_runner.py --source csv-live --symbol NQ --csv /home/ubuntu/tjr/ENTREGA/NQ_live_1m.csv --poll 5 --mode paper --ntfy-topic tjralrtgae123
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

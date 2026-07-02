@@ -1,0 +1,6 @@
+# Deps MINIMAS para el path de señales (one-shot en GitHub Actions).
+# Pinneadas a la version testeada en la Mac de Sebastian (2026-07-02).
+# NO incluye scipy: el motor de señales (engine.backtest) usa solo pandas+numpy.
+pandas==3.0.3
+numpy==2.5.0
+yfinance==1.4.1

@@ -1,0 +1,34 @@
+{
+ "base (coste normal)": {
+  "n": 5191,
+  "expectancy_R": 0.3962,
+  "winrate": 0.7241,
+  "profit_factor": 2.84,
+  "sum_R": 2056.9,
+  "max_dd_R": -16.3
+ },
+ "slippage 2x (2 ticks/lado)": {
+  "n": 5191,
+  "expectancy_R": 0.3597,
+  "winrate": 0.6918,
+  "profit_factor": 2.565,
+  "sum_R": 1867.1,
+  "max_dd_R": -35.0
+ },
+ "slippage 3x + comis 2pt (stress)": {
+  "n": 5191,
+  "expectancy_R": 0.1034,
+  "winrate": 0.513,
+  "profit_factor": 1.281,
+  "sum_R": 536.8,
+  "max_dd_R": -406.8
+ },
+ "stress + stop en sweep + solo NY": {
+  "n": 2782,
+  "expectancy_R": 0.2384,
+  "winrate": 0.6071,
+  "profit_factor": 1.815,
+  "sum_R": 663.1,
+  "max_dd_R": -97.1
+ }
+}

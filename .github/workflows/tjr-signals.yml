@@ -1,0 +1,74 @@
+name: TJR signals (one-shot ntfy)
+
+# ============================================================================
+# Corre deploy/tjr_oneshot.py cada 5 min DENTRO de las killzones (London + NY am).
+# Cada corrida: baja NQ 1m de Yahoo -> detecta si la ULTIMA vela 5m cerrada dio
+# señal fresca -> manda ntfy -> commitea el JSON de dedup de vuelta al repo.
+#
+# El edge NO vive aca: el one-shot importa live_runner (engine.backtest testeado).
+# Este archivo es SOLO el cron + el plumbing. No toca la estrategia.
+# ============================================================================
+
+on:
+  # Cron de GitHub = UTC y NO respeta horario de verano (DST). Por eso cada
+  # killzone se cubre con el rango UTC UNION de EST + EDT (+ cola para alertas
+  # demoradas). Correr fuera de sesion es inofensivo: el motor filtra por
+  # sesion y el one-shot imprime "sin señal fresca" y sale 0.
+  schedule:
+    # London KZ  (NY 02:00-05:00)  EDT=06-09 UTC / EST=07-10 UTC -> 06:00-10:59 UTC
+    - cron: "*/5 6-10 * * 1-5"
+    # NY am KZ    (NY 09:30-12:00)  EDT=13:30-16 UTC / EST=14:30-17 UTC -> 13:00-17:59 UTC
+    - cron: "*/5 13-17 * * 1-5"
+  # Boton manual (Actions -> Run workflow) para probar cuando quieras.
+  workflow_dispatch:
+
+# El JSON de estado se commitea de vuelta -> necesita permiso de escritura.
+permissions:
+  contents: write
+
+# Serializa las corridas: nunca dos jobs pisandose el push del estado.
+# cancel-in-progress:false = si ya hay una corriendo, la nueva espera (no la mata).
+concurrency:
+  group: tjr-signals-state
+  cancel-in-progress: false
+
+jobs:
+  senales:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: deploy/requirements.txt
+
+      - name: Instalar deps
+        run: pip install -r deploy/requirements.txt
+
+      - name: Correr one-shot TJR
+        env:
+          # El topic de ntfy va como SECRET (no hardcodeado) -> el repo puede ser
+          # publico y el topic queda privado. Cargalo en:
+          # repo -> Settings -> Secrets and variables -> Actions -> New secret
+          #   Name: TJR_NTFY_TOPIC   Value: tu topic real
+          TJR_NTFY_TOPIC: ${{ secrets.TJR_NTFY_TOPIC }}
+        run: python3 deploy/tjr_oneshot.py
+
+      - name: Commitear estado de dedup (si cambio)
+        run: |
+          git config user.name  "tjr-bot"
+          git config user.email "tjr-bot@users.noreply.github.com"
+          if [ -n "$(git status --porcelain deploy/estado_senales.json)" ]; then
+            git add deploy/estado_senales.json
+            git commit -m "chore(tjr): update dedup state [skip ci]"
+            # rebase por si otra corrida pusheo mientras tanto (extra seguro con concurrency)
+            git pull --rebase origin "${GITHUB_REF_NAME}" || true
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          else
+            echo "sin cambios en estado_senales.json, no commiteo"
+          fi
